@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./assets/js/lib.min.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- <style type="text/tailwindcss">
+      @theme {
+        --color-clifford: #da373d;
+      }
+    </style> -->
+  </head>
+  <body
+    class="bg-[url('./assets/img/giphy.gif')] bg-cover bg-no-repeat min-h-[100vh] bg-center"
+  >
+    <div id="content" class="pt-[10vh] relative">
+      <div>
+        <h1 class="text-8xl text-center">CB Fest</h1>
+        <h1 class="text-8xl text-center">CB Fest</h1>
+        <h1 class="text-8xl text-center">2025</h1>
+      </div>
+
+      <div
+        class="flex flex-col max-w-80 justify-center items-center mx-auto pt-12 gap-8"
+      >
+        <button
+          class="bg-black text-white border-white border-2 text-5xl p-4 rounded-xl w-[600px] min-h-40"
+          type="button"
+          id="button1"
+        >
+          LAYANAN KEBANKSENTRALAN
+        </button>
+        <button
+          type="button"
+          id="button2"
+          class="bg-black text-white border-white border-2 text-5xl p-4 rounded-xl w-[600px] min-h-40"
+        >
+          LAYANAN OPERASIONAL TRESURI
+        </button>
+        <button
+          type="button"
+          id="button3"
+          class="bg-black text-white border-white border-2 text-5xl p-4 rounded-xl w-[600px] min-h-40"
+        >
+          PERIZINAN TERPADU
+        </button>
+        <button
+          type="button"
+          id="button4"
+          class="bg-black text-white border-white border-2 text-5xl p-4 rounded-xl w-[600px] min-h-40"
+        >
+          QUIZ
+        </button>
+      </div>
+    </div>
+    <script src="./assets/js/init.js"></script>
+    <script src="./assets/js/jquery.js"></script>
+    <script>
+      let homePage = null;
+      function setSearchParam(key, value) {
+        const url = new URL(window.location.href);
+        url.searchParams.set(key, value); // add or update param
+
+        // Update the URL without reloading the page
+        history.replaceState(null, "", url);
+      }
+      let button = [
+        {
+          id: "#button1",
+          page: "./page2.html",
+        },
+        {
+          id: "#button2",
+          page: "./page2.html",
+        },
+        {
+          id: "#button3",
+          page: "./page3.html",
+        },
+        {
+          id: "#button4",
+          page: "./page4.html",
+        },
+      ];
+
+      button.forEach((element, index) => {
+        $(document).on("click", element.id, () => {
+          console.log("click");
+          $("#content").animate(
+            {
+              opacity: 0,
+              left: "-100px",
+            },
+            500,
+            async function () {
+              // $(this).hide();
+
+              const data = await fetch(element.page);
+              const result = await data.text();
+              console.log(result);
+              homePage = $(this).html();
+              $(this).html(result);
+              $(this).css({
+                left: "100px",
+              });
+              $(this).animate(
+                {
+                  opacity: 1,
+                  left: "0",
+                },
+                500
+              );
+            }
+          );
+
+          setSearchParam("tab", index.toString());
+        });
+      });
+
+      // button back
+      $(document).on("click", "#button_back", () => {
+        console.log("test");
+        $("#content").animate(
+          {
+            opacity: 0,
+            left: "100px",
+          },
+          500,
+          async function () {
+            $(this).html(homePage);
+            $(this).css({
+              left: "-100px",
+            });
+            $(this).animate(
+              {
+                opacity: 1,
+                left: "0",
+              },
+              500
+            );
+            setSearchParam('tab', '')
+          }
+        );
+      });
+
+    </script>
+  </body>
+</html>
