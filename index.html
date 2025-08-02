@@ -70,18 +70,64 @@
         {
           id: "#button1",
           page: "./page2.html",
+          data: `<div class="text-8xl text-center bg-white">
+    <h1>
+        PAGE 2
+    </h1>
+  <button
+    class="bg-black text-white border-white border-2 text-5xl p-4 rounded-xl w-[600px] min-h-40"
+    type="button"
+    id="button_back"
+  >
+    Kembali
+  </button>
+</div>
+`,
         },
         {
           id: "#button2",
           page: "./page2.html",
+          data: `<div class="text-8xl text-center bg-white">
+    <h1>
+        PAGE 2
+    </h1>
+  <button
+    class="bg-black text-white border-white border-2 text-5xl p-4 rounded-xl w-[600px] min-h-40"
+    type="button"
+    id="button_back"
+  >
+    Kembali
+  </button>
+</div>
+`,
         },
         {
           id: "#button3",
           page: "./page3.html",
+          data: `<div class="text-8xl text-center bg-white">
+
+    PAGE 2
+</div>
+
+<button
+    class="bg-black text-white border-white border-2 text-5xl p-4 rounded-xl w-[600px] min-h-40"
+    type="button"
+    id="button_back"
+  >
+    Kembali
+  </button>`,
         },
         {
           id: "#button4",
           page: "./page4.html",
+          data: `<button
+  class="bg-black text-white border-white border-2 text-5xl p-4 rounded-xl w-[600px] min-h-40"
+  type="button"
+  id="button_back"
+>
+  Kembali
+</button>
+`,
         },
       ];
 
@@ -96,12 +142,9 @@
             500,
             async function () {
               // $(this).hide();
-
-              const data = await fetch(element.page);
-              const result = await data.text();
-              console.log(result);
+              console.log(element.data);
               homePage = $(this).html();
-              $(this).html(result);
+              $(this).html(element.data);
               $(this).css({
                 left: "100px",
               });
@@ -140,11 +183,10 @@
               },
               500
             );
-            setSearchParam('tab', '')
+            setSearchParam("tab", "");
           }
         );
       });
-
     </script>
   </body>
 </html>
