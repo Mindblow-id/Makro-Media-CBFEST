@@ -7,55 +7,54 @@
     <script src="./assets/js/lib.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css" />
     <style>
+      ::-webkit-scrollbar {
+        display: none;
+      }
       @font-face {
         font-family: "Orbitron";
         src: url("./assets/fonts/Orbitron-VariableFont_wght.ttf")
           format("truetype");
         font-display: swap;
       }
-      html,
-      body,
       * {
-        font-family: "Orbitron", Arial, Helvetica, sans-serif !important;
-      }
-      @keyframes shine {
-        0%,
-        100% {
-          box-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
-            0 0 20px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.7);
-        }
-        50% {
-          box-shadow: 0 0 20px rgba(255, 255, 255, 1),
-            0 0 40px rgba(0, 255, 255, 1), 0 0 60px rgba(0, 255, 255, 1);
-        }
+        font-family: "Orbitron", Arial, Helvetica, sans-serif;
       }
       body {
-        /* margin: 0;
-      background: linear-gradient(
-        to bottom right,
-        rgba(33, 0, 90, 0.9),
-        rgba(255, 0, 0, 0.6)
-      );
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px; */
         color: white;
       }
-      h1 {
-        font-size: 3rem;
+      .title {
         font-weight: bold;
-        color: #ffd700;
+        position: relative;
+        background: linear-gradient(
+          90deg,
+          #b48235 0%,
+          #f8ee9a 20%,
+          #f8ee9a 30%,
+          #b48235 50%,
+          #f8ee9a 70%,
+          #f8ee9a 80%,
+          #b48235 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin-bottom: 40px;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        /* text-shadow: 15px 15px 0 rgba(0, 0, 0, 0.5); */
       }
-      .card-button {
-        padding: 20px;
+      .title::before {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        color: #b48235;
+        text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
+      }
+      /* .card-button {
+        padding: 20px; 
         background: radial-gradient(
           circle,
-          rgba(0, 0, 0, 0.9),
+          rgba(0, 0, 0, 0.95),
           rgba(0, 0, 0, 0.5)
         );
         border: 4px solid white;
@@ -70,19 +69,100 @@
         background: rgba(255, 255, 255, 0.1);
         transform: translateY(-3px);
         box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+      } */
+      .card-button {
+        padding: 20px;
+        border-radius: 30px;
+        text-align: center;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+
+        font-size: 48px;
+        font-weight: bold;
+        background: url("./assets/img/Button.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        /* -webkit-background-clip: text; */
+        /* -webkit-text-fill-color: transparent; */
+        /* background-clip: text; */
+        /* text-fill-color: transparent; */
+      }
+      .text-button {
+        background: linear-gradient(
+          90deg,
+          #b48235 0%,
+          #f8ee9a 40%,
+          #f8ee9a 60%,
+          #b48235 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .card-button:hover {
+        /* background: rgba(255, 2 55, 255, 0.1); */
+        transform: translateY(-3px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
       }
 
       /* Fade transition for background video */
+      #bg_video,
+      #bg_video_fade {
+        transition: opacity 0.7s;
+        will-change: opacity;
+      }
+      #bg_video_fade {
+        position: absolute;
+        inset: 0;
+        z-index: -9;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .text-shadow {
+        text-shadow: 6px 8px 2px rgba(0, 0, 0, 0.5);
+        /* 0px 1px 4px rgba(0,0,0,0.15); */
+      }
     </style>
   </head>
-  <body>
+  <body class="">
+    <!-- save screen Video Layer  -->
+    <video
+      autoplay
+      loop
+      muted
+      id="save_screen"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.7s;
+      "
+    >
+      <source
+        src="./assets/videos/SAVE SCREEN.mp4"
+        type="video/mp4"
+        style="display: none"
+      />
+    </video>
     <!-- Background Video -->
     <video
       id="bg_video"
       autoplay
       loop
       muted
-      playsinline
       class="absolute inset-0 -z-10 w-full h-full object-cover object-center"
       style="opacity: 1"
     >
@@ -92,32 +172,45 @@
         id="bg_menu_utama"
       />
       <source
-        src="./assets/videos/SAVE SCREEN.mp4"
-        type="video/mp4"
-        id="bg_save_screen"
-        style="display: none"
-      />
-      <source
         src="./assets/videos/SUB MENU.mp4"
         type="video/mp4"
         id="bg_sub_menu"
         style="display: none"
       />
     </video>
+    <!-- Fade overlay video for transition -->
+    <video
+      id="bg_video_fade"
+      autoplay
+      loop
+      muted
+      style="opacity: 0; pointer-events: none"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+    ></video>
+
     <!-- Main Content -->
+    <!-- <h1 class="title" data-text="Title">Title asdibaffiq-ofn2-vn-2bv-</h1> -->
     <div id="content" class="relative"></div>
 
     <!-- testing -->
-    
-
 
     <!-- Scripts -->
     <script src="./assets/js/init.js"></script>
     <script src="./assets/js/data/home.js"></script>
+    <script src="./assets/js/components/button.js"></script>
+    <script src="./assets/js/components/card.js"></script>
     <script src="./assets/js/data/layanan-kebanksentralan.js"></script>
+    <script src="./assets/js/data/layanan-kebanksentralan/CAS.js"></script>
+    <script src="./assets/js/data/layanan-kebanksentralan/CAABP.js"></script>
+    <script src="./assets/js/data/layanan-kebanksentralan/LCTS.js"></script>
+    <script src="./assets/js/data/layanan-kebanksentralan/LCIBP.js"></script>
+    <script src="./assets/js/data/layanan-kebanksentralan/SRS.js"></script>
+    <script src="./assets/js/data/layanan-kebanksentralan/SRBS.js"></script>
     <script src="./assets/js/jquery.js"></script>
 
     <script>
+      // Data array for content lookup
+      const data = [homeData, LK1Data, LK2Data, CAS, CAABP, LCTS, LCIBP, SRS, SRBS];
       let homePage = null;
       // Store the last background video id to avoid unnecessary changes
       let lastBgVideoId = null;
@@ -134,38 +227,54 @@
       }
 
       /**
-       * Updates the background video based on the current tab, without fade transition.
+       * Updates the background video based on the current tab, with fade transition.
        * Only changes the video if the background video id is different from the last one.
        * @param {string} tab
        */
       function updateBgVideo(tab) {
         var $video = $("#bg_video");
         var $sources = $video.find("source");
-
         var bgId = getBgVideoIdByTab(tab);
 
         // Only update if the background video id has changed
         if (lastBgVideoId === bgId) {
           return;
         }
-        lastBgVideoId = bgId;
 
-        // Hide all sources
-        $sources.css("display", "none");
-
-        // Show the active source and update the video src
         var $activeSource = $("#" + bgId);
+        if (!$activeSource.length) return;
 
-        if ($activeSource.length) {
+        // Fade transition logic
+        var $fadeVideo = $("#bg_video_fade");
+        // Set the fade video src to the new video
+        $fadeVideo[0].src = $activeSource.attr("src");
+        $fadeVideo[0].currentTime = 0;
+        $fadeVideo[0].load();
+
+        // Start playing the fade video
+        $fadeVideo[0].play().catch(function () {});
+
+        // Fade in the overlay video
+        $fadeVideo.css("opacity", 1);
+
+        // After fade in, swap the main video and fade out the overlay
+        setTimeout(function () {
+          // Hide all sources
+          $sources.css("display", "none");
+          // Show the active source and update the video src
           $activeSource.css("display", "");
           $video[0].src = $activeSource.attr("src");
+          $video[0].currentTime = 0;
           $video[0].load();
           $video[0].play().catch(function () {});
-        }
+
+          // Fade out the overlay video
+          $fadeVideo.css("opacity", 0);
+        }, 700);
+
+        lastBgVideoId = bgId;
       }
 
-      // Data array for content lookup
-      const data = [homeData, LK1Data, LK2Data];
 
       /**
        * Loads the content for the current tab from the URL.
@@ -197,16 +306,38 @@
        */
       $(document).on("click", "[data-next]", function () {
         const nextTab = $(this).attr("data-next");
+        console.log('clicked')
         const dataContent = data.find((v) => v.id == nextTab);
 
+        // Animate out with translateX(-100px)
         $("#content").animate(
-          { opacity: 0, left: "-100px" },
-          500,
-          async function () {
-            $(this).html(dataContent.data);
-            $(this).css({ left: "100px" });
-            $(this).animate({ opacity: 1, left: "0" }, 500);
-            updateBgVideo(nextTab);
+          { opacity: 0 },
+          {
+            duration: 500,
+            step: function(now, fx) {
+              if (fx.prop === "opacity") {
+                $(this).css("transform", `translateX(${-100 * (1 - now)}px)`);
+              }
+            },
+            complete: async function () {
+              $(this).html(dataContent.data);
+              $(this).css({ transform: "translateX(100px)" });
+              $(this).animate(
+                { opacity: 1 },
+                {
+                  duration: 500,
+                  step: function(now, fx) {
+                    if (fx.prop === "opacity") {
+                      $(this).css("transform", `translateX(${100 * (1 - now)}px)`);
+                    }
+                  },
+                  complete: function () {
+                    $(this).css("transform", "translateX(0)");
+                  }
+                }
+              );
+              updateBgVideo(nextTab);
+            }
           }
         );
 
@@ -221,6 +352,8 @@
       $(document).on("click", "[data-previous]", function () {
         const nextTab = $(this).attr("data-previous");
         const dataContent = data.find((v) => v.id == nextTab);
+
+        // Animate out with translateX(100px)
         $("#content").animate(
           { opacity: 0, left: "100px" },
           500,
@@ -228,12 +361,43 @@
             $(this).html(dataContent.data);
             $(this).css({ left: "-100px" });
             $(this).animate({ opacity: 1, left: "0" }, 500);
-            setSearchParam("tab", "");
-            updateBgVideo("");
+            setSearchParam("tab", nextTab);
+            updateBgVideo(nextTab);
           }
         );
         if (nextTab) {
           setSearchParam("tab", nextTab);
+        }
+      });
+
+      function updateTitleDataText() {
+        $(".title").each(function () {
+          $(this).attr("data-text", $(this).html());
+        });
+      }
+
+      // Run on initial load
+      $(function () {
+        updateTitleDataText();
+
+        // Watch for changes inside #content
+        const targetNode = document.getElementById("content");
+        if (targetNode) {
+          const observer = new MutationObserver(function (mutationsList) {
+            for (const mutation of mutationsList) {
+              if (
+                mutation.type === "childList" ||
+                mutation.type === "subtree"
+              ) {
+                updateTitleDataText();
+              }
+            }
+          });
+
+          observer.observe(targetNode, {
+            childList: true, // watch for added/removed children
+            subtree: true, // watch entire subtree
+          });
         }
       });
 
@@ -243,6 +407,51 @@
       window.addEventListener("popstate", function () {
         loadContentFromUrl();
       });
+
+      // --- Save Screen Inactivity Logic ---
+      // (function () {
+      //   const saveScreen = document.getElementById("save_screen");
+      //   const contentDiv = document.getElementById("content");
+      //   let inactivityTimeout = null;
+      //   let isSaveScreenActive = false;
+
+      //   // Helper to show save screen with fade in
+      //   function showSaveScreen() {
+      //     if (isSaveScreenActive) return;
+      //     isSaveScreenActive = true;
+      //     saveScreen.style.pointerEvents = "auto";
+      //     saveScreen.style.opacity = "1";
+      //     if (contentDiv) contentDiv.style.filter = "blur(8px)";
+      //   }
+
+      //   // Helper to hide save screen with fade out
+      //   function hideSaveScreen() {
+      //     if (!isSaveScreenActive) return;
+      //     isSaveScreenActive = false;
+      //     saveScreen.style.opacity = "0";
+      //     saveScreen.style.pointerEvents = "none";
+      //     if (contentDiv) contentDiv.style.filter = "";
+      //   }
+
+      //   // Reset inactivity timer
+      //   function resetInactivityTimer() {
+      //     clearTimeout(inactivityTimeout);
+      //     if (isSaveScreenActive) {
+      //       hideSaveScreen();
+      //     }
+      //     inactivityTimeout = setTimeout(showSaveScreen, 10000);
+      //   }
+
+      //   // Listen for user interaction
+      //   ["mousemove", "mousedown", "keydown", "touchstart", "scroll"].forEach(
+      //     function (eventName) {
+      //       window.addEventListener(eventName, resetInactivityTimer, true);
+      //     }
+      //   );
+
+      //   // Start timer on load
+      //   resetInactivityTimer();
+      // })();
     </script>
   </body>
 </html>
