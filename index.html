@@ -409,49 +409,49 @@
       });
 
       // --- Save Screen Inactivity Logic ---
-      // (function () {
-      //   const saveScreen = document.getElementById("save_screen");
-      //   const contentDiv = document.getElementById("content");
-      //   let inactivityTimeout = null;
-      //   let isSaveScreenActive = false;
+      (function () {
+        const saveScreen = document.getElementById("save_screen");
+        const contentDiv = document.getElementById("content");
+        let inactivityTimeout = null;
+        let isSaveScreenActive = false;
 
-      //   // Helper to show save screen with fade in
-      //   function showSaveScreen() {
-      //     if (isSaveScreenActive) return;
-      //     isSaveScreenActive = true;
-      //     saveScreen.style.pointerEvents = "auto";
-      //     saveScreen.style.opacity = "1";
-      //     if (contentDiv) contentDiv.style.filter = "blur(8px)";
-      //   }
+        // Helper to show save screen with fade in
+        function showSaveScreen() {
+          if (isSaveScreenActive) return;
+          isSaveScreenActive = true;
+          saveScreen.style.pointerEvents = "auto";
+          saveScreen.style.opacity = "1";
+          if (contentDiv) contentDiv.style.filter = "blur(8px)";
+        }
 
-      //   // Helper to hide save screen with fade out
-      //   function hideSaveScreen() {
-      //     if (!isSaveScreenActive) return;
-      //     isSaveScreenActive = false;
-      //     saveScreen.style.opacity = "0";
-      //     saveScreen.style.pointerEvents = "none";
-      //     if (contentDiv) contentDiv.style.filter = "";
-      //   }
+        // Helper to hide save screen with fade out
+        function hideSaveScreen() {
+          if (!isSaveScreenActive) return;
+          isSaveScreenActive = false;
+          saveScreen.style.opacity = "0";
+          saveScreen.style.pointerEvents = "none";
+          if (contentDiv) contentDiv.style.filter = "";
+        }
 
-      //   // Reset inactivity timer
-      //   function resetInactivityTimer() {
-      //     clearTimeout(inactivityTimeout);
-      //     if (isSaveScreenActive) {
-      //       hideSaveScreen();
-      //     }
-      //     inactivityTimeout = setTimeout(showSaveScreen, 10000);
-      //   }
+        // Reset inactivity timer
+        function resetInactivityTimer() {
+          clearTimeout(inactivityTimeout);
+          if (isSaveScreenActive) {
+            hideSaveScreen();
+          }
+          inactivityTimeout = setTimeout(showSaveScreen, 60000);
+        }
 
-      //   // Listen for user interaction
-      //   ["mousemove", "mousedown", "keydown", "touchstart", "scroll"].forEach(
-      //     function (eventName) {
-      //       window.addEventListener(eventName, resetInactivityTimer, true);
-      //     }
-      //   );
+        // Listen for user interaction
+        ["mousemove", "mousedown", "keydown", "touchstart", "scroll"].forEach(
+          function (eventName) {
+            window.addEventListener(eventName, resetInactivityTimer, true);
+          }
+        );
 
-      //   // Start timer on load
-      //   resetInactivityTimer();
-      // })();
+        // Start timer on load
+        resetInactivityTimer();
+      })();
     </script>
   </body>
 </html>
