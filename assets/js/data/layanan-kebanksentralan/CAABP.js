@@ -28,7 +28,7 @@ const CAABP = {
       </p>
 
       <div class="flex flex-col justify-center items-center mt-12">
-        <img class=" " src="assets/img/CAABP/process.png"  >
+        <img class=" color-dodge" src="assets/img/CAABP/process.png"  >
         
         <c-card class="w-full h-[400px] mt-20">
             <div class="flex flex-col p-6">

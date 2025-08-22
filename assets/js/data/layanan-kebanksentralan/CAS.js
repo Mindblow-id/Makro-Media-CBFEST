@@ -28,8 +28,8 @@ const CAS = {
       </p>
 
       <div class="flex flex-col justify-center items-center mt-12">
-        <img class=" " src="assets/img/CAS/law.png"  >
-        <img class=" mt-12" src="assets/img/CAS/sla.png"  >
+        <img class=" color-dodge" src="assets/img/CAS/law.png"  >
+        <img class=" color-dodge mt-12" src="assets/img/CAS/sla.png"  >
 
         <div class="flex justify-between items-center w-full mt-12"> 
           <c-button data-previous="lk-type-of-service" class="w-80">

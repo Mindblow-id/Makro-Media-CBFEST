@@ -28,7 +28,7 @@ const LCIBP = {
       </p>
 
       <div class="flex flex-col justify-center items-center mt-8">
-        <img class=" " src="assets/img/LCIBP/lcibp.png"  >
+        <img class=" color-dodge" src="assets/img/LCIBP/lcibp.png"  >
         <img class=" mt-12" src="assets/img/LCIBP/notes.png"  >
         
         <c-card class="w-full h-[350px] mt-14">

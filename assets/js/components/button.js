@@ -1,15 +1,40 @@
 class ButtonComponent extends HTMLElement {
 
-    
+    static get observedAttributes() {
+        // Register all attributes that might be used on the button
+        return [
+            'id',
+            'class',
+            'style',
+            'data-next',
+            'data-previous',
+            'disabled'
+        ];
+    }
+
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        this.render();
+    }
 
-        let style = this.getAttribute('style') || '';
-        let dataNext = this.getAttribute('data-next');
-        let dataPrevious = this.getAttribute('data-next');
-        let className = this.getAttribute('class') || '';
-        
+    attributeChangedCallback(name, oldValue, newValue) {
+        // Re-render on any attribute change
+        this.render();
+    }
+
+    render() {
+        // Get all possible attributes
+        const id = this.getAttribute('id');
+        const className = this.getAttribute('class') || '';
+        const style = this.getAttribute('style') || '';
+        const dataNext = this.getAttribute('data-next');
+        const dataPrevious = this.getAttribute('data-previous');
+        const disabled = this.hasAttribute('disabled');
+
+        // Only include data-next and data-previous if not disabled
+        const dataNextAttr = (!disabled && dataNext) ? `data-next="${dataNext}"` : '';
+        const dataPreviousAttr = (!disabled && dataPrevious) ? `data-previous="${dataPrevious}"` : '';
 
         this.shadowRoot.innerHTML = `
         <style>
@@ -27,6 +52,10 @@ class ButtonComponent extends HTMLElement {
                 width: 100%; /* button width from parent or inline style */
                 height: fit-content;
             }
+            button:disabled {
+                pointer-events: none;
+                filter: grayscale(100%);
+            }
             img {
                 display: block;
                 width: 100%;  /* scale to button width */
@@ -41,14 +70,26 @@ class ButtonComponent extends HTMLElement {
                 pointer-events: none; /* so click still goes to button */
             }
         </style>
-
-        <button class="${className}" type="button" style="${style}" ${dataNext && `data-next="${dataNext}"`} ${dataPrevious && `data-previous="${dataPrevious}"`}>
+        <button
+            ${id ? `id="${id}"` : ''}
+            class="${className}"
+            type="button"
+            style="${style}"
+            ${dataNextAttr}
+            ${dataPreviousAttr}
+            ${disabled ? 'disabled' : ''}
+        >
             <img src="assets/img/Button.svg">
             <span class="text">
                 <slot></slot>
             </span>
         </button>
         `;
+    }
+
+    connectedCallback() {
+        // Ensure disabled state is reflected on first connect
+        this.render();
     }
 }
 

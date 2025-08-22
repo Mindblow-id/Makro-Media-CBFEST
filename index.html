@@ -10,6 +10,18 @@
       ::-webkit-scrollbar {
         display: none;
       }
+      /* Ensure all blend images use the right mode */
+      .color-dodge {
+        mix-blend-mode: color-dodge;
+      }
+
+      .pentagon-container {
+        display: inline-block; /* or flex, depending on your layout needs */
+        mix-blend-mode: color-dodge;
+      }
+
+      /* Remove mix-blend-mode from the .color-dodge class if the image will be animated */
+
       @font-face {
         font-family: "Orbitron";
         src: url("./assets/fonts/Orbitron-VariableFont_wght.ttf")
@@ -41,6 +53,25 @@
         margin-bottom: 40px;
         /* text-shadow: 15px 15px 0 rgba(0, 0, 0, 0.5); */
       }
+      .text-gradient {
+        font-weight: bold;
+        position: relative;
+        background: linear-gradient(
+          90deg,
+          #b48235 0%,
+          #f8ee9a 20%,
+          #f8ee9a 30%,
+          #b48235 50%,
+          #f8ee9a 70%,
+          #f8ee9a 80%,
+          #b48235 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 40px;
+        /* text-shadow: 15px 15px 0 rgba(0, 0, 0, 0.5); */
+      }
       .title::before {
         content: attr(data-text);
         position: absolute;
@@ -49,6 +80,9 @@
         z-index: -1;
         color: #b48235;
         text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
+      }
+      .Arial {
+        font-family: Arial, Helvetica, sans-serif;
       }
       /* .card-button {
         padding: 20px; 
@@ -130,6 +164,88 @@
         text-shadow: 6px 8px 2px rgba(0, 0, 0, 0.5);
         /* 0px 1px 4px rgba(0,0,0,0.15); */
       }
+
+    /* Gold-filled answer box (selected/correct letter) */
+    .gold-filled-box {
+      background: linear-gradient(135deg, #b48235 0%, #f8ee9a 100%);
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(180, 130, 53, 0.25);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 96px;
+      height: 96px;
+      margin: 8px;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #fff;
+      letter-spacing: 2px;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+
+    /* Gold-outline answer/choice box (unselected) */
+    .gold-outline-box {
+      background: transparent;
+      border: 3px solid #f8ee9a;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 96px;
+      height: 96px;
+      margin: 8px;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #b48235;
+      letter-spacing: 2px;
+      position: relative;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    /* Empty answer box (for blanks) */
+    .empty-box {
+      background: transparent;
+      border: 3px solid #bcbcbc;
+      border-radius: 16px;
+      width: 96px;
+      height: 96px;
+      margin: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #bcbcbc;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    /* Letter text inside boxes */
+    .letter-content {
+      font-family: "Orbitron", Arial, Helvetica, sans-serif;
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      letter-spacing: 2px;
+      user-select: none;
+    }
+
+    /* "CHOOSE THE LETTERS" title style */
+    .choose-letters-title {
+      font-family: "Orbitron", Arial, Helvetica, sans-serif;
+      font-size: 2rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #b48235 0%, #f8ee9a 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-fill-color: transparent;
+      letter-spacing: 2px;
+      text-align: center;
+      margin: 24px 0 16px 0;
+      text-transform: uppercase;
+    }
     </style>
   </head>
   <body class="">
@@ -164,7 +280,7 @@
       loop
       muted
       class="absolute inset-0 -z-10 w-full h-full object-cover object-center"
-      style="opacity: 1"
+      style="opacity: 1; isolation: isolate"
     >
       <source
         src="./assets/videos/MENU UTAMA.mp4"
@@ -206,11 +322,32 @@
     <script src="./assets/js/data/layanan-kebanksentralan/LCIBP.js"></script>
     <script src="./assets/js/data/layanan-kebanksentralan/SRS.js"></script>
     <script src="./assets/js/data/layanan-kebanksentralan/SRBS.js"></script>
+
+    <script src="./assets/js/data/layanan-operasional-tresuri/profile.js"></script>
+    <script src="./assets/js/data/layanan-operasional-tresuri/SRTS.js"></script>
+    <script src="./assets/js/data/layanan-operasional-tresuri/SFTS.js"></script>
+    
+    <script src="./assets/js/data/quiz/quiz.js"></script>
+    
     <script src="./assets/js/jquery.js"></script>
 
     <script>
       // Data array for content lookup
-      const data = [homeData, LK1Data, LK2Data, CAS, CAABP, LCTS, LCIBP, SRS, SRBS];
+      const data = [
+        homeData,
+        LK1Data,
+        LK2Data,
+        CAS,
+        CAABP,
+        LCTS,
+        LCIBP,
+        SRS,
+        SRBS,
+        treasuryProfile,
+        SRTS,
+        SFTS,
+        quiz
+      ];
       let homePage = null;
       // Store the last background video id to avoid unnecessary changes
       let lastBgVideoId = null;
@@ -275,7 +412,6 @@
         lastBgVideoId = bgId;
       }
 
-
       /**
        * Loads the content for the current tab from the URL.
        */
@@ -289,6 +425,9 @@
             $("#content").html(content.data);
           } else {
             $("#content").html(homeData.data);
+          }
+          if (tab == 'quiz') {
+            initGame()
           }
         } else {
           $("#content").html(homeData.data);
@@ -306,15 +445,29 @@
        */
       $(document).on("click", "[data-next]", function () {
         const nextTab = $(this).attr("data-next");
-        console.log('clicked')
+        console.log("clicked");
         const dataContent = data.find((v) => v.id == nextTab);
 
-        // Animate out with translateX(-100px)
+        let img = document.querySelector('img.color-dodge')
+        console.log(img)
+        $(img).animate(
+          {
+            opacity: 0,
+            backgroundColor: "red",
+          },
+          {
+            duration: 100,
+            complete: () => {
+              console.log('berhasil')
+            },
+          }
+        );
+
         $("#content").animate(
           { opacity: 0 },
           {
-            duration: 500,
-            step: function(now, fx) {
+            duration: 400,
+            step: function (now, fx) {
               if (fx.prop === "opacity") {
                 $(this).css("transform", `translateX(${-100 * (1 - now)}px)`);
               }
@@ -326,24 +479,31 @@
                 { opacity: 1 },
                 {
                   duration: 500,
-                  step: function(now, fx) {
+                  step: function (now, fx) {
                     if (fx.prop === "opacity") {
-                      $(this).css("transform", `translateX(${100 * (1 - now)}px)`);
+                      $(this).css(
+                        "transform",
+                        `translateX(${100 * (1 - now)}px)`
+                      );
                     }
                   },
                   complete: function () {
                     $(this).css("transform", "translateX(0)");
-                  }
+                    if (nextTab == 'quiz') {
+                      initGame()
+                    }
+                  },
                 }
               );
               updateBgVideo(nextTab);
-            }
+            },
           }
         );
 
         if (nextTab) {
           setSearchParam("tab", nextTab);
         }
+        // Animate out with translateX(-100px)
       });
 
       /**
@@ -409,49 +569,49 @@
       });
 
       // --- Save Screen Inactivity Logic ---
-      (function () {
-        const saveScreen = document.getElementById("save_screen");
-        const contentDiv = document.getElementById("content");
-        let inactivityTimeout = null;
-        let isSaveScreenActive = false;
+      // (function () {
+      //   const saveScreen = document.getElementById("save_screen");
+      //   const contentDiv = document.getElementById("content");
+      //   let inactivityTimeout = null;
+      //   let isSaveScreenActive = false;
 
-        // Helper to show save screen with fade in
-        function showSaveScreen() {
-          if (isSaveScreenActive) return;
-          isSaveScreenActive = true;
-          saveScreen.style.pointerEvents = "auto";
-          saveScreen.style.opacity = "1";
-          if (contentDiv) contentDiv.style.filter = "blur(8px)";
-        }
+      //   // Helper to show save screen with fade in
+      //   function showSaveScreen() {
+      //     if (isSaveScreenActive) return;
+      //     isSaveScreenActive = true;
+      //     saveScreen.style.pointerEvents = "auto";
+      //     saveScreen.style.opacity = "1";
+      //     if (contentDiv) contentDiv.style.filter = "blur(8px)";
+      //   }
 
-        // Helper to hide save screen with fade out
-        function hideSaveScreen() {
-          if (!isSaveScreenActive) return;
-          isSaveScreenActive = false;
-          saveScreen.style.opacity = "0";
-          saveScreen.style.pointerEvents = "none";
-          if (contentDiv) contentDiv.style.filter = "";
-        }
+      //   // Helper to hide save screen with fade out
+      //   function hideSaveScreen() {
+      //     if (!isSaveScreenActive) return;
+      //     isSaveScreenActive = false;
+      //     saveScreen.style.opacity = "0";
+      //     saveScreen.style.pointerEvents = "none";
+      //     if (contentDiv) contentDiv.style.filter = "";
+      //   }
 
-        // Reset inactivity timer
-        function resetInactivityTimer() {
-          clearTimeout(inactivityTimeout);
-          if (isSaveScreenActive) {
-            hideSaveScreen();
-          }
-          inactivityTimeout = setTimeout(showSaveScreen, 60000);
-        }
+      //   // Reset inactivity timer
+      //   function resetInactivityTimer() {
+      //     clearTimeout(inactivityTimeout);
+      //     if (isSaveScreenActive) {
+      //       hideSaveScreen();
+      //     }
+      //     inactivityTimeout = setTimeout(showSaveScreen, 60000);
+      //   }
 
-        // Listen for user interaction
-        ["mousemove", "mousedown", "keydown", "touchstart", "scroll"].forEach(
-          function (eventName) {
-            window.addEventListener(eventName, resetInactivityTimer, true);
-          }
-        );
+      //   // Listen for user interaction
+      //   ["mousemove", "mousedown", "keydown", "touchstart", "scroll"].forEach(
+      //     function (eventName) {
+      //       window.addEventListener(eventName, resetInactivityTimer, true);
+      //     }
+      //   );
 
-        // Start timer on load
-        resetInactivityTimer();
-      })();
+      //   // Start timer on load
+      //   resetInactivityTimer();
+      // })();
     </script>
   </body>
 </html>
