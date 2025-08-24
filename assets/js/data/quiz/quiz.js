@@ -147,7 +147,7 @@ const quiz = {
 
 // --- QUIZ QUESTIONS ---
 
-const questions = [
+const allQuestions = [
     {
         id: 1,
         clue: "Key interest rate used by Bank Indonesia in monetary policy.",
@@ -188,7 +188,108 @@ const questions = [
         choices: ["V", "O", "T", "E", "B", "X", "Y", "S"],
         blanks: [2, 4]
     },
+    {
+        id: 6,
+        clue: "Annual festival showcasing Bank Indonesia’s services",
+        answer: "CBFEST",
+        pattern: "C_FE_T",
+        choices: ["S", "O", "M", "E", "B", "F"],
+        blanks: [1, 4]
+    },
+    {
+        id: 7,
+        clue: "The BI department responsible for licensing and central bank services operationsAnnual festival showcasing Bank Indonesia’s services",
+        answer: "DPPT",
+        pattern: "__PT",
+        choices: ["P", "D", "M", "E"],
+        blanks: [0, 1]
+    },
+    {
+        id: 8,
+        clue: "BI’s licensing slogan: Professional, Accountable, Simple, Transparent, and Innovative",
+        answer: "PASTI",
+        pattern: "P__TI",
+        choices: ["X", "S", "M", "E", "A"],
+        blanks: [1, 2]
+    },
+    {
+        id: 9,
+        clue: "BI’s online licensing platform",
+        answer: "EASE",
+        pattern: "E_S_",
+        choices: ["A", "D", "M", "E"],
+        blanks: [1, 3]
+    },
+    {
+        id: 10,
+        clue: "Fund transfers in BI-RTGS settle via ___ (hint: real-time)",
+        answer: "SWIFT",
+        pattern: "SW__T",
+        choices: ["A", "I", "M", "E", "F"],
+        blanks: [2, 3]
+    },
+    {
+        id: 11,
+        clue: "The national hero from Yogyakarta whose image appears on the Medali Emas Dipanegara (MED)",
+        answer: "DIPANEGARA",
+        pattern: "_IP_N_G_RA",
+        choices: ["B", "O", "M", "E", "B", "A", "E", "D", "A", "E"],
+        blanks: [0, 3, 5, 7]
+    },
+    {
+        id: 12,
+        clue: "The first gold coin minted by the Indonesian government, featuring Prince Dipanegara, without any nominal value inscribed.",
+        answer: "MED",
+        pattern: "_E_",
+        choices: ["D", "O", "M"],
+        blanks: [0, 2]
+    },
+    {
+        id: 13,
+        clue: "Sultanate region where Prince Dipanegara came from.",
+        answer: "YOGYAKARTA",
+        pattern: "Y_GY_K__TA",
+        choices: ["R", "N", "O", "E", "B", "A", "E", "D", "A", "E"],
+        blanks: [1, 4, 6, 7]
+    },
+    {
+        id: 14,
+        clue: "In order to manage exchange reserve, Bank Indonesia uses an integrated system caled___",
+        answer: "BIFOMOBO",
+        pattern: "BIFO__BO",
+        choices: ["V", "O", "T", "F", "B", "X", "M", "Y"],
+        blanks: [4, 5]
+    },
+    {
+        id: 15,
+        clue: "Bank Indonesia's licensing platform is called___",
+        answer: "EASE",
+        pattern: "_A_E",
+        choices: ["E", "O", "S", "F"],
+        blanks: [0, 2]
+    },
+    
 ];
+
+// --- RANDOMIZATION FUNCTIONS ---
+
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+function getRandomQuestions(count = 5) {
+    // Shuffle all questions and take the first 'count' questions
+    const shuffledQuestions = shuffleArray(allQuestions);
+    return shuffledQuestions.slice(0, count);
+}
+
+// Current game questions (will be set during initialization)
+let questions = [];
 
 
 // --- CONSTANTS ---
@@ -319,7 +420,6 @@ function initGame() {
     elements.checkBtn.addEventListener('click', checkAnswer);
     elements.replayButton.addEventListener('click', restartGame);
 
-
     elements.gameBoard.classList.remove('hidden')
     elements.buttonControl.classList.remove('hidden')
     elements.countdownContainer.classList.remove('opacity-0')
@@ -337,6 +437,9 @@ function initGame() {
     gameCompleted = false;
     countdownValue = 10;
 
+    // Get randomized questions for this game session
+    questions = getRandomQuestions(5);
+
     // Initialize user answers array
     questions.forEach(q => {
         const answer = Array(q.answer.length).fill('');
@@ -346,6 +449,8 @@ function initGame() {
                 answer[i] = q.answer[i];
             }
         }
+        // Initialize choice indices tracking
+        answer.choiceIndices = {};
         userAnswers.push(answer);
     });
 
@@ -353,7 +458,7 @@ function initGame() {
     updateUI();
     hideFeedbackCard();
     startCountdown();
-    activatedButton(elements.checkBtn)
+    disabledButton(elements.checkBtn)
     disabledButton(elements.nextBtn)
 }
 
@@ -414,50 +519,48 @@ function createWordDisplay(question) {
 function createChoices(question) {
     elements.choicesContainer.innerHTML = '';
 
-    question.choices.forEach(letter => {
+    question.choices.forEach((letter, letterIndex) => {
         const choiceBtn = document.createElement('c-card');
         const choiceLetter = document.createElement('p');
         choiceBtn.className = 'w-20 h-20';
         choiceLetter.className = 'text-button pt-2 pl-2 text-3xl font-bold'
 
         choiceLetter.textContent = letter;
-        choiceBtn.addEventListener('click', () => selectLetter(letter));
+        choiceBtn.dataset.choiceIndex = letterIndex; // Store the choice index
+        choiceBtn.addEventListener('click', () => selectLetter(letter, letterIndex));
 
-        // Check if this letter is already used
-        console.log(letter)
-        const question = questions[currentQuestionIndex]
-        const usedCount = userAnswers[currentQuestionIndex].filter((l, index) => {
+        // Check if this specific choice index is already used
+        const isUsed = userAnswers[currentQuestionIndex].some((userLetter, index) => {
             if (!question.blanks.includes(index)) return false;
-            return l === letter
-        }).length;
-        
-        console.log(userAnswers[currentQuestionIndex])
-        const availableCount = question.choices.filter(l => l === letter).length;
+            // Check if this specific choice index was used
+            return userAnswers[currentQuestionIndex].choiceIndices && 
+                   userAnswers[currentQuestionIndex].choiceIndices[index] === letterIndex;
+        });
 
-        if (usedCount >= availableCount) {
+        if (isUsed) {
             choiceBtn.classList.add('opacity-50');
+            choiceBtn.style.pointerEvents = 'none';
         }
+        
         choiceBtn.append(choiceLetter)
-
         elements.choicesContainer.appendChild(choiceBtn);
     });
 }
 
 // --- SELECT LETTER ---
 
-function selectLetter(letter) {
+function selectLetter(letter, letterIndex) {
     const question = questions[currentQuestionIndex];
     const userAnswer = userAnswers[currentQuestionIndex];
 
-    // Check if letter is still available
-    const usedCount = userAnswers[currentQuestionIndex].filter((l, index) => {
+    // Check if this specific choice index is already used
+    const isUsed = userAnswer.some((userLetter, index) => {
         if (!question.blanks.includes(index)) return false;
-        return l === letter
-    }).length;
-    const availableCount = question.choices.filter(l => l === letter).length;
+        return userAnswer.choiceIndices && userAnswer.choiceIndices[index] === letterIndex;
+    });
 
-    if (usedCount >= availableCount) {
-        return; // Letter not available
+    if (isUsed) {
+        return; // This specific choice is already used
     }
 
     // Find first empty blank position
@@ -465,6 +568,11 @@ function selectLetter(letter) {
         const blankIndex = question.blanks[i];
         if (!userAnswer[blankIndex]) {
             userAnswer[blankIndex] = letter;
+            // Track which choice index was used
+            if (!userAnswer.choiceIndices) {
+                userAnswer.choiceIndices = {};
+            }
+            userAnswer.choiceIndices[blankIndex] = letterIndex;
             break;
         }
     }
@@ -474,18 +582,34 @@ function selectLetter(letter) {
 
     // Check if all blanks are filled
     const allFilled = question.blanks.every(index => userAnswer[index]);
-    elements.checkBtn.disabled = !allFilled;
+    if (allFilled) { 
+        activatedButton(elements.checkBtn)
+    } else {
+        disabledButton(elements.checkBtn)
+    }
 }
 
 // --- CLEAR LETTER ---
 
 function clearLetter(index) {
     const question = questions[currentQuestionIndex];
+    const userAnswer = userAnswers[currentQuestionIndex];
 
-    if (question.blanks.includes(index) && userAnswers[currentQuestionIndex][index]) {
-        userAnswers[currentQuestionIndex][index] = '';
+    if (question.blanks.includes(index) && userAnswer[index]) {
+        userAnswer[index] = '';
+        // Clear the choice index tracking for this position
+        if (userAnswer.choiceIndices) {
+            delete userAnswer.choiceIndices[index];
+        }
         displayQuestion();
-        elements.checkBtn.disabled = false;
+        
+        // Check if all blanks are filled after clearing
+        const allFilled = question.blanks.every(blankIndex => userAnswer[blankIndex]);
+        if (allFilled) { 
+            activatedButton(elements.checkBtn)
+        } else {
+            disabledButton(elements.checkBtn)
+        }
     }
 }
 
@@ -719,7 +843,7 @@ function nextQuestion() {
         updateUI();
         disabledButton(elements.nextBtn)
         activatedButton(elements.prevBtn)
-        activatedButton(elements.checkBtn)
+        disabledButton(elements.checkBtn)
         startCountdown();
     }
 }
