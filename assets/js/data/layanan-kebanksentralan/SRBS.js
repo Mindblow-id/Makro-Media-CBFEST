@@ -24,7 +24,7 @@ const SRBS = {
       </h3>
 
       <div class="flex flex-col justify-center items-center mt-14">
-        <img class=" " src="assets/img/SRBS/illus-2.png" >    
+        <img class=" color-dodge" src="assets/img/SRBS/illus-2.png" >    
         <img class=" mt-12" src="assets/img/SRBS/illus-1.png" >    
 
         <c-card class="w-full h-[380px] mt-14">

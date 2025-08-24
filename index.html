@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>Document</title>
     <script src="./assets/js/lib.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css" />
@@ -13,6 +13,7 @@
       /* Ensure all blend images use the right mode */
       .color-dodge {
         mix-blend-mode: color-dodge;
+        will-change: opacity;
       }
 
       .pentagon-container {
@@ -306,7 +307,7 @@
 
     <!-- Main Content -->
     <!-- <h1 class="title" data-text="Title">Title asdibaffiq-ofn2-vn-2bv-</h1> -->
-    <div id="content" class="relative"></div>
+    <div id="content" class="relative overflow-hidden min-h-screen"></div>
 
     <!-- testing -->
 
@@ -327,6 +328,31 @@
     <script src="./assets/js/data/layanan-operasional-tresuri/SRTS.js"></script>
     <script src="./assets/js/data/layanan-operasional-tresuri/SFTS.js"></script>
     
+
+    <!-- Perizinan Terpadu -->
+    <script src="assets/js/data/perizinan-terpadu/integrated-licensing.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/LF.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/ETIBI.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/BSLAT1.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/BSLAT2.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/BSLAT3.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/IEFD.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/MASMD.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/FMDD1.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/FMDD2.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/FMDD3.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/FMDD4.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/FMDD5.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/MMAMSD.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/CMD1.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/CMD2.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/CMD3.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/PSPD.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/PSMD1.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/PSMD2.js"></script>
+    <script src="assets/js/data/perizinan-terpadu/PSMD3.js"></script>
+    <!-- --- -->
+
     <script src="./assets/js/data/quiz/quiz.js"></script>
     
     <script src="./assets/js/jquery.js"></script>
@@ -346,7 +372,33 @@
         treasuryProfile,
         SRTS,
         SFTS,
-        quiz
+
+        // perizinnan terpadu
+        integratedLicensing,
+        LF,
+        ETIBI,
+        BSLAT1,
+        BSLAT2,
+        BSLAT3,
+        IEFD,
+        MASMD,
+        MASMD2,
+        FMDD1,
+        FMDD2,
+        FMDD3,
+        FMDD4,
+        FMDD5,
+        MMAMSD,
+        CMD1,
+        CMD2,
+        CMD3,
+        PSPD,
+        PSMD1,
+        PSMD2,
+        PSMD3,
+        
+        // quiz
+        quiz,
       ];
       let homePage = null;
       // Store the last background video id to avoid unnecessary changes
@@ -443,67 +495,43 @@
       /**
        * Handles navigation to the next tab/content.
        */
+      // Helper function for fade transition
+      function fadeContentTransition(newContent, nextTab, callback) {
+        const $content = $("#content");
+        $content.css({
+          // transition: 'opacity 0.5s',
+          opacity: 1,
+        });
+
+        // Fade out
+        $content.css({ opacity: '0' });
+
+          $content.html(newContent);
+          // Fade in
+          $content.css({ opacity: "1" });
+
+          if (typeof callback === "function") callback();
+
+          // Remove transition after animation to avoid interfering with other changes
+        
+      }
+
       $(document).on("click", "[data-next]", function () {
         const nextTab = $(this).attr("data-next");
-        console.log("clicked");
         const dataContent = data.find((v) => v.id == nextTab);
 
-        let img = document.querySelector('img.color-dodge')
-        console.log(img)
-        $(img).animate(
-          {
-            opacity: 0,
-            backgroundColor: "red",
-          },
-          {
-            duration: 100,
-            complete: () => {
-              console.log('berhasil')
-            },
-          }
-        );
+        if (!dataContent) return;
 
-        $("#content").animate(
-          { opacity: 0 },
-          {
-            duration: 400,
-            step: function (now, fx) {
-              if (fx.prop === "opacity") {
-                $(this).css("transform", `translateX(${-100 * (1 - now)}px)`);
-              }
-            },
-            complete: async function () {
-              $(this).html(dataContent.data);
-              $(this).css({ transform: "translateX(100px)" });
-              $(this).animate(
-                { opacity: 1 },
-                {
-                  duration: 500,
-                  step: function (now, fx) {
-                    if (fx.prop === "opacity") {
-                      $(this).css(
-                        "transform",
-                        `translateX(${100 * (1 - now)}px)`
-                      );
-                    }
-                  },
-                  complete: function () {
-                    $(this).css("transform", "translateX(0)");
-                    if (nextTab == 'quiz') {
-                      initGame()
-                    }
-                  },
-                }
-              );
-              updateBgVideo(nextTab);
-            },
+        fadeContentTransition(dataContent.data, nextTab, function () {
+          if (nextTab == 'quiz') {
+            initGame();
           }
-        );
+          updateBgVideo(nextTab);
 
-        if (nextTab) {
-          setSearchParam("tab", nextTab);
-        }
-        // Animate out with translateX(-100px)
+          if (nextTab) {
+            setSearchParam("tab", nextTab);
+          }
+        });
       });
 
       /**
@@ -513,21 +541,18 @@
         const nextTab = $(this).attr("data-previous");
         const dataContent = data.find((v) => v.id == nextTab);
 
-        // Animate out with translateX(100px)
-        $("#content").animate(
-          { opacity: 0, left: "100px" },
-          500,
-          async function () {
-            $(this).html(dataContent.data);
-            $(this).css({ left: "-100px" });
-            $(this).animate({ opacity: 1, left: "0" }, 500);
-            setSearchParam("tab", nextTab);
-            updateBgVideo(nextTab);
+        if (!dataContent) return;
+
+        fadeContentTransition(dataContent.data, nextTab, function () {
+          if (nextTab == 'quiz') {
+            initGame();
           }
-        );
-        if (nextTab) {
-          setSearchParam("tab", nextTab);
-        }
+          updateBgVideo(nextTab);
+
+          if (nextTab) {
+            setSearchParam("tab", nextTab);
+          }
+        });
       });
 
       function updateTitleDataText() {

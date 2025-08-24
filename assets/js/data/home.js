@@ -18,8 +18,8 @@ class HomePage extends HTMLElement {
         <c-button class="w-[600px]" data-next="treasury-profile">
           <p class="text-button text-5xl  mx-12">Treasury Operational Services</p>
         </c-button>
-        <c-button class="w-[600px]" data-next="home">
-          <p class="text-button text-5xl  mx-12">Integrated Licensing</p>
+        <c-button class="w-[600px] py-4" data-next="integrated-licensing">
+          <p class="text-button text-5xl py-4 mx-12">Integrated Licensing</p>
         </c-button>
         <c-button class="w-[600px]" data-next="quiz">
           <p class="text-button text-5xl  mx-12">Quiz</p>
