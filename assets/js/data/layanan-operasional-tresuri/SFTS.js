@@ -20,31 +20,34 @@ const SFTS = {
 
     <div class="pt-80 container mx-14 w-fit">
       <h3 class="text-5xl title w-fit mx-auto uppercase text-center">
-        Scope Of Rupiah Treasury Settlement  
+        Scope Of Forex Treasury Settlement  
       </h3>
 
       
 
-      <c-card class="mt-12 w-full h-[350px]" content-style="top: 0; left: 50%; transform: translate(-50%, 0); align-items: start; justify-content: start;">
-        <div class="mx-12 mt-12">
+      <c-card class="mt-12 w-full h-[284px]" content-style="top: 0; left: 50%; transform: translate(-50%, 0); align-items: start; justify-content: start;">
+        <div class="mx-12 mt-8">
             <p class="text-gradient text-3xl">
-                2. Settlement of Monetary Operation Transaction
+                1. Settlement of Reserve Management Transaction
             </p>
             <ul class="list-disc mx-12 text-2xl">
                 <li class="Arial">
-                    Money Market (Term Deposit overnight, regular, conventional, syariah, and DHE SDA)
+                Fixed Income (SSB)
                 </li>
                 <li class="Arial">
-                    Foreign Exchange (Forex interventions: spot, forward, swap, Domestic Non-Deliverable Forward (DNDF), hedging swaps, etc.)
+                    Money Market (Deposito overnight, regular)
                 </li>
                 <li class="Arial">
-                    SBBI Forex, SVBI, SUVBI
+                 Foreign Exchange
+                </li>
+                <li class="Arial">
+                 Gold Deposits
                 </li>
             </ul>
         </div>
       </c-card>
-      <c-card class="mt-12 w-full h-[350px]" content-style="top: 0; left: 50%; transform: translate(-50%, 0); align-items: start; justify-content: start;">
-        <div class="mx-12 mt-12">
+      <c-card class="mt-12 w-full h-[296px]" content-style="top: 0; left: 50%; transform: translate(-50%, 0); align-items: start; justify-content: start;">
+        <div class="mx-12 mt-8">
             <p class="text-gradient text-3xl">
                 2. Settlement of Monetary Operation Transaction
             </p>
@@ -63,7 +66,7 @@ const SFTS = {
       </c-card>
 
       <c-card class="mt-12 w-full h-[600px]" content-style="top: 0; left: 50%; transform: translate(-50%, 0); align-items: start; justify-content: start;">
-        <div class="mx-12 mt-12">
+        <div class="mx-12 mt-8">
             <p class="text-gradient text-3xl">
                 3. Settlement of Other Forex Transaction
             </p>
@@ -97,15 +100,15 @@ const SFTS = {
       </c-card>
 
      <div class="flex justify-between items-center w-full mt-12"> 
-          <c-button data-previous="lk-type-of-service" class="w-96">
+          <c-button data-previous="treasury-profile" class="w-96">
             <div class="flex justify-center items-center  px-8">
               <img src="assets/img/arrow-left-gold.svg" class="w-14">
               <p class="text-button text-xl"> Treasury Operational Services </p>
             </div>  
           </c-button>
-          <c-button data-next="CAABP" class="w-96">
+          <c-button data-next="SNTS" class="w-96">
             <div class="flex justify-center items-center  px-8">
-              <p class="text-button text-xl"> Scope of Forex Treasury Settlement </p>
+              <p class="text-button text-xl"> Scope of Non Treasury Settlement </p>
               <img src="assets/img/arrow-right-gold.svg" class="w-14">
             </div>  
           </c-button>
