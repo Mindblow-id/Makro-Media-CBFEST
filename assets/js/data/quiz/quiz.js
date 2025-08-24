@@ -200,18 +200,31 @@ const checkBtnFilter = 'filter: hue-rotate(180deg) saturate(2);'
 
 function completeQuizTemplate(score) {
     return `
-    <p class="Arial text-center text-xl font-bold">
-        Congratullations! You've completed all the quetions in this quiz.
-    </p>
-
-    <div class="uppercase text-button w-fit mx-auto mt-12 text-center">
-        <p class="text-2xl font-bold">
-            Total Score
-        </p>
-        <p class="text-5xl font-extrabold mt-4">
-            ${score}
+    <div class=""> 
+        <p class="Arial text-center text-xl font-bold">
+            Congratullations! You've completed all the quetions in this quiz.
         </p>
 
+        <div class="w-fit mx-auto mt-12 text-center">
+            <div class="uppercase text-button ">
+                <p class="text-2xl font-bold">
+                    Total Score
+                </p>
+                <p class="text-5xl font-extrabold mt-4">
+                    ${score}
+                </p>
+            </div>
+
+            ${score >= 80 ? `
+            <div class="w-fit mx-auto mt-12">
+                <img src="assets/img/qr-code.png" class="mx-auto w-60" >
+                <p class="text-white mt-4 text-2xl">
+                    https://s.id/QuizWinnerCBFEST2025
+                </p>
+            </div>
+            ` : ''}
+
+        </div>
     </div>
     `;
 }
