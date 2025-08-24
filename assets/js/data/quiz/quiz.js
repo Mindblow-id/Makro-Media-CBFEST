@@ -535,8 +535,18 @@ function updateCountdownDisplay() {
 // --- ON COUNTDOWN COMPLETE ---
 
 function onCountdownComplete() {
+    // Show timeout message
+    
     // Auto-check the current answer
     checkAnswer()
+    elements.result.classList.remove('opacity-0')
+    elements.result.style = 'filter: hue-rotate(345deg) saturate(2);'
+    elements.resultTitle.innerHTML = `
+    <p class="text-button text-4xl w-fit mx-auto font-bold text-center">
+    SORRY <br>
+    YOU'VE RUN OUT OF TIME
+    </p>    
+    `
 }
 
 // --- OVERLAY MANAGEMENT ---
