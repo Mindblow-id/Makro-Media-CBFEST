@@ -27,15 +27,18 @@ const quiz = {
         </p>
 
         <!-- TIMER -->
-        <h2 class="my-12 relative w-40 h-40 mx-auto flex justify-center items-center">
+        <h2 id="countdown-container" class="my-12 relative w-40 h-40 mx-auto flex justify-center items-center">
             <img src="assets/img/Circle.svg" class="w-40 absolute top-0 left-0">
             <span class="text-5xl font-bold" id="countdown">10</span>
         </h2>
 
         <!-- MAIN QUIZ CARD -->
         <div class="container mx-auto">
-            <c-card class="mx-auto h-[600px]" content-style="top: 40px; left: 50%; transform: translate(-50%, 0); align-items: start; justify-content: center;">
-                <div>
+            <c-card  class="mx-auto h-[600px]" content-style="top: 40px; left: 50%; transform: translate(-50%, 0); align-items: start; justify-content: center;">
+                <div id="game-board">
+                    <!-- CLICK BLOCKING OVERLAY -->
+                    <div id="game-overlay" class="absolute inset-0 z-50 hidden"></div>
+                    
                     <!-- CLUE HEADER -->
                     <header class="game-header">
                         <h1 class="text-button w-fit text-2xl mx-auto font-bold text-center">CLUE:</h1>
@@ -49,7 +52,7 @@ const quiz = {
                         </div>
                     </header>
 
-                    <h3 class="text-button w-fit mx-auto text-2xl mt-12 font-bold"> The Answer </h3>
+                    <h3 class="text-button uppercase w-fit mx-auto text-2xl mt-12 font-bold"> The Answer </h3>
 
                     <!-- MAIN GAME CONTENT -->
                     <main class="game-content">
@@ -70,7 +73,7 @@ const quiz = {
                         </div>
 
                         <!-- FEEDBACK CARD SECTION -->
-                        <div class="feedback-card-section mt-8" id="feedbackCardSection" style="display: none;">
+                        <div class="hidden feedback-card-section mt-8" id="feedbackCardSection" style="display: none;">
                             <c-card class="feedback-result-card mx-auto" id="feedbackResultCard" content-style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem;">
                                 <h2 class="feedback-result-title text-3xl font-bold mb-2" id="feedbackResultTitle"></h2>
                                 <p class="feedback-result-message text-xl" id="feedbackResultMessage"></p>
@@ -79,6 +82,8 @@ const quiz = {
 
                         
                     </main>
+                </div>
+                <div id="score-place">
                 </div>
             </c-card>
 
@@ -91,25 +96,41 @@ const quiz = {
            
 
             <!-- CONTROLS -->
-            <footer class="mt-12 game-controls container mx-auto flex justify-center items-center gap-8">
-                <c-button class="btn btn-secondary" id="prevBtn" disabled>
-                    <div class="flex justify-center items-center px-8">
-                        <img src="assets/img/arrow-left-gold.svg" class="w-14">
-                        <p class="text-button text-xl">Back</p>
-                    </div>
-                </c-button>
-                <c-button class="btn btn-primary" style="filter: hue-rotate(265deg) saturate(1.5);" id="checkBtn">
-                    <p class="text-button text-2xl">
-                        Check The Answer
-                    </p>
-                </c-button>
-                <c-button class="btn btn-secondary" id="nextBtn" disabled>
-                    <div class="flex justify-center items-center px-8">
-                    <p class="text-button text-xl">Next</p>
-                    <img src="assets/img/arrow-right-gold.svg" class="w-14">
-                    </div>
-                </c-button>
+            <footer id="button-control" class="mt-12 game-controls container mx-auto flex justify-center items-center gap-8">
+                <div id="prevBtn">
+                    <c-button class="btn btn-secondary" disabled>
+                        <div class="flex justify-center items-center px-8">
+                            <img src="assets/img/arrow-left-gold.svg" class="w-14">
+                            <p class="text-button text-xl">Back</p>
+                        </div>
+                    </c-button>
+                </div>
+                <div id="checkBtn" style="filter: hue-rotate(180deg) saturate(2);">
+                    <c-button class="btn btn-primary" style="">
+                        <p class="text-button text-2xl">
+                            Check The Answer
+                        </p>
+                    </c-button>
+                </div>
+                <div id="nextBtn" disabled>
+                    <c-button class="btn btn-secondary">
+                        <div class="flex justify-center items-center px-8">
+                            <p class="text-button text-xl">Next</p>
+                            <img src="assets/img/arrow-right-gold.svg" class="w-14">
+                        </div>
+                    </c-button>
+                </div>
             </footer>
+        </div>
+
+        <div id="replay-button" class="w-80 mx-auto hidden mt-12">
+            <c-button class="btn w-80 ">
+                <div class="flex justify-center items-center px-8">
+                    <p class="text-button text-2xl">
+                        Play Again
+                    </p>
+                </div>
+            </c-button>
         </div>
 
         <!-- RESULT MODAL -->
@@ -142,8 +163,84 @@ const questions = [
         pattern: "Q_I_", 
         choices: ["R", "B", "S", "X"],
         blanks: [1, 3]
-    }
+    },
+    {
+        id: 3,
+        clue: "Real-time, low-cost fund transfer system from Bank Indonesia",
+        answer: "BIFAST",
+        pattern: "BI_A_T",
+        choices: ["V", "B", "T", "F", "S"],
+        blanks: [2, 4]
+    },
+    {
+        id: 4,
+        clue: "Bank Indonesia contributes to national and regional economic ____.",
+        answer: "GROWTH",
+        pattern: "GR_W_H",
+        choices: ["V", "O", "T", "F", "B", "X"],
+        blanks: [2, 4]
+    },
+    {
+        id: 5,
+        clue: "Function of BI related to managing the Government's account and debt payments",
+        answer: "TREASURY",
+        pattern: "TR_A_URY",
+        choices: ["V", "O", "T", "E", "B", "X", "Y", "S"],
+        blanks: [2, 4]
+    },
 ];
+
+
+// --- CONSTANTS ---
+
+const styleButtonDisabled = 'filter: grayscale(100%);'
+const checkBtnFilter = 'filter: hue-rotate(180deg) saturate(2);'
+
+// --- FUNCTIONS ---
+
+function completeQuizTemplate(score) {
+    return `
+    <div class=""> 
+        <p class="Arial text-center text-xl font-bold">
+            Congratullations! You've completed all the quetions in this quiz.
+        </p>
+
+        <div class="w-fit mx-auto mt-12 text-center">
+            <div class="uppercase text-button ">
+                <p class="text-2xl font-bold">
+                    Total Score
+                </p>
+                <p class="text-5xl font-extrabold mt-4">
+                    ${score}
+                </p>
+            </div>
+
+            ${score >= 80 ? `
+            <div class="w-fit mx-auto mt-12">
+                <img src="assets/img/qr-code.png" class="mx-auto w-60" >
+                <p class="text-white mt-4 text-2xl">
+                    https://s.id/QuizWinnerCBFEST2025
+                </p>
+            </div>
+            ` : ''}
+
+        </div>
+    </div>
+    `;
+}
+
+function disabledButton(element) {
+    element.setAttribute('disabled', '')
+    element.style = styleButtonDisabled;
+}
+
+function activatedButton(element) {
+    element.removeAttribute('disabled')
+    element.style = null;
+    if (element.id == 'checkBtn') {
+        element.style = checkBtnFilter;
+    }
+}
 
 // --- STATE MANAGEMENT ---
 
@@ -176,6 +273,12 @@ let elements = {
     feedbackResultMessage: document.getElementById('feedbackResultMessage'),
     result: document.getElementById('result'),
     resultTitle: document.getElementById('resultTitle'),
+    gameBoard: document.getElementById('game-board'),
+    buttonControl: document.getElementById('button-control'),
+    scorePlace: document.getElementById('score-place'),
+    replayButton: document.getElementById('replay-button'),
+    countdownContainer: document.getElementById('countdown-container'),
+    gameOverlay: document.getElementById('game-overlay'),
 };
 
 // --- INITIALIZE GAME ---
@@ -202,15 +305,31 @@ function initGame() {
         feedbackResultMessage: document.getElementById('feedbackResultMessage'),
         result: document.getElementById('result'),
         resultTitle: document.getElementById('resultTitle'),
-
+        gameBoard: document.getElementById('game-board'),
+        buttonControl: document.getElementById('button-control'),
+        scorePlace: document.getElementById('score-place'),
+        replayButton: document.getElementById('replay-button'),
+        countdownContainer: document.getElementById('countdown-container'),
+        gameOverlay: document.getElementById('game-overlay'),
     };
 
     // Attach event listeners
     elements.prevBtn.addEventListener('click', previousQuestion);
     elements.nextBtn.addEventListener('click', nextQuestion);
     elements.checkBtn.addEventListener('click', checkAnswer);
-    elements.restartBtn.addEventListener('click', restartGame);
+    elements.replayButton.addEventListener('click', restartGame);
 
+
+    elements.gameBoard.classList.remove('hidden')
+    elements.buttonControl.classList.remove('hidden')
+    elements.countdownContainer.classList.remove('opacity-0')
+
+    elements.scorePlace.classList.add('hidden')
+    elements.replayButton.classList.add('hidden')
+    
+    // Hide the overlay layer
+    hideGameOverlay();
+    
     // Reset state
     currentQuestionIndex = 0;
     score = 0;
@@ -234,13 +353,15 @@ function initGame() {
     updateUI();
     hideFeedbackCard();
     startCountdown();
+    activatedButton(elements.checkBtn)
+    disabledButton(elements.nextBtn)
 }
 
 // --- DISPLAY QUESTION ---
 
 function displayQuestion() {
     const question = questions[currentQuestionIndex];
-
+ 
     // Update clue
     elements.clueText.textContent = question.clue;
 
@@ -414,13 +535,40 @@ function updateCountdownDisplay() {
 // --- ON COUNTDOWN COMPLETE ---
 
 function onCountdownComplete() {
+    // Show timeout message
+    
     // Auto-check the current answer
     checkAnswer()
+    elements.result.classList.remove('opacity-0')
+    elements.result.style = 'filter: hue-rotate(345deg) saturate(2);'
+    elements.resultTitle.innerHTML = `
+    <p class="text-button text-4xl w-fit mx-auto font-bold text-center">
+    SORRY <br>
+    YOU'VE RUN OUT OF TIME
+    </p>    
+    `
+}
+
+// --- OVERLAY MANAGEMENT ---
+
+function showGameOverlay() {
+    if (elements.gameOverlay) {
+        elements.gameOverlay.classList.remove('hidden');
+    }
+}
+
+function hideGameOverlay() {
+    if (elements.gameOverlay) {
+        elements.gameOverlay.classList.add('hidden');
+    }
 }
 
 // --- CHECK ANSWER ---
 
 function checkAnswer() {
+    // Show overlay to prevent user interaction
+    showGameOverlay();
+    
     // Clear countdown when manually checking answer
     if (countdownInterval) {
         clearInterval(countdownInterval);
@@ -432,20 +580,43 @@ function checkAnswer() {
 
     // Show feedback card
     showFeedbackCard(isCorrect, question.answer, userAnswer);
-
+    
     // Update score
     if (isCorrect) {
         score++;
     }
 
     // Disable check button and enable next button
-    elements.checkBtn.disabled = true;
+    disabledButton(elements.checkBtn)
     if (currentQuestionIndex < questions.length - 1) {
-        elements.nextBtn.removeAttribute('disabled');
+        activatedButton(elements.nextBtn)
+        console.log(elements.nextBtn.hasAttribute('disabled'))
     } else {
         // Game completed
         gameCompleted = true;
-        setTimeout(() => showResults(), 3000); // Increased delay to show feedback card
+
+        // remove elements
+        elements.result.classList.add('opacity-0')
+        elements.buttonControl.classList.add('hidden')
+        elements.gameBoard.classList.add('hidden')
+        
+        elements.countdownContainer.classList.add('opacity-0')
+
+
+        // show score
+
+        const finalScore = Math.round(score / questions.length * 100)
+
+        elements.scorePlace.classList.remove('hidden')
+        elements.scorePlace.innerHTML = completeQuizTemplate(finalScore)
+        elements.replayButton.classList.remove('hidden')
+
+
+
+
+
+        return;
+    
     }
 
     updateUI();
@@ -455,22 +626,31 @@ function checkAnswer() {
 
 function showFeedbackCard(isCorrect, correctAnswer, userAnswer) {
     // Set card styling based on result
+    elements.result.classList.remove('opacity-0')
     if (isCorrect) {
-        elements.feedbackResultCard.setAttribute('card-style', 'background: linear-gradient(90deg, #4A2C3A, #7B3A3A, #8C4030) border-box; border: 2px solid #FFD700;');
-        elements.feedbackResultTitle.textContent = 'CONGRATULATIONS!';
-        elements.feedbackResultTitle.className = 'feedback-result-title text-3xl font-bold mb-2 text-gold';
-        elements.feedbackResultMessage.textContent = 'YOUR ANSWER IS CORRECT';
-        elements.feedbackResultMessage.className = 'feedback-result-message text-xl text-gold';
+        elements.result.style = 'filter: none;'
+        elements.resultTitle.innerHTML = `
+        <p class="text-button text-4xl w-fit mx-auto font-bold mb-4">
+        CONGRATULATIONS!
+        </p>    
+        <p class="text-button text-4xl w-fit mx-auto font-bold">
+        YOUR ANSWER IS CORRECT
+        </p>    
+        
+        `
     } else {
-        elements.feedbackResultCard.setAttribute('card-style', 'background: linear-gradient(90deg, #4A2C3A, #7B3A3A, #8C4030) border-box; border: 2px solid #FF8C00;');
-        elements.feedbackResultTitle.textContent = 'SORRY';
-        elements.feedbackResultTitle.className = 'feedback-result-title text-3xl font-bold mb-2 text-orange';
-        elements.feedbackResultMessage.textContent = 'YOUR ANSWER IS INCORRECT';
-        elements.feedbackResultMessage.className = 'feedback-result-message text-xl text-orange';
+        elements.result.style = 'filter: hue-rotate(345deg) saturate(2);'
+        elements.resultTitle.innerHTML = `
+        <p class="text-button text-4xl w-fit mx-auto font-bold text-center">
+        SORRY <br>
+        YOUR ANSWER IS INCORRECT
+        </p>    
+        
+        `
     }
 
     // Show the feedback card
-    elements.feedbackCardSection.style.display = 'block';
+    // elements.feedbackCardSection.style.display = 'block';
     
     // Auto-hide after 3 seconds
     setTimeout(() => {
@@ -481,47 +661,65 @@ function showFeedbackCard(isCorrect, correctAnswer, userAnswer) {
 // --- HIDE FEEDBACK CARD ---
 
 function hideFeedbackCard() {
-    elements.feedbackCardSection.style.display = 'none';
+    // elements.feedbackCardSection.style.display = 'none';
 }
 
 // --- SHOW FEEDBACK ---
 
 function showFeedback(isCorrect, correctAnswer) {
-    const feedbackDiv = document.createElement('div');
-    feedbackDiv.className = `feedback-message ${isCorrect ? 'success' : 'error'}`;
+    // const feedbackDiv = document.createElement('div');
+    // feedbackDiv.className = `feedback-message ${isCorrect ? 'success' : 'error'}`;
 
-    if (isCorrect) {
-        feedbackDiv.innerHTML = `🎉 <strong>Benar!</strong> Jawaban yang tepat adalah <strong>${correctAnswer}</strong>`;
-    } else {
-        feedbackDiv.innerHTML = `❌ <strong>Salah!</strong> Jawaban yang benar adalah <strong>${correctAnswer}</strong>`;
-    }
+    // if (isCorrect) {
+    //     feedbackDiv.innerHTML = `🎉 <strong>Benar!</strong> Jawaban yang tepat adalah <strong>${correctAnswer}</strong>`;
+    // } else {
+    //     feedbackDiv.innerHTML = `❌ <strong>Salah!</strong> Jawaban yang benar adalah <strong>${correctAnswer}</strong>`;
+    // }
 
-    elements.feedbackSection.innerHTML = '';
-    elements.feedbackSection.appendChild(feedbackDiv);
+    // elements.feedbackSection.innerHTML = '';
+    // elements.feedbackSection.appendChild(feedbackDiv);
 }
 
 // --- NAVIGATION ---
 
 function previousQuestion() {
+    if (elements.prevBtn.hasAttribute('disabled')) {
+        return;
+    }
+    
+    // Hide overlay to allow user interaction
+    hideGameOverlay();
+    
+    elements.result.classList.add('opacity-0')
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         displayQuestion();
         updateUI();
-        elements.nextBtn.setAttribute('disabled', '');
-        elements.prevBtn.removeAttribute('disabled');
-        elements.checkBtn.disabled = false;
+        disabledButton(elements.nextBtn)
+        activatedButton(elements.prevBtn)
+        disabledButton(elements.checkBtn)
         startCountdown();
     }
 }
 
 function nextQuestion() {
+    
+    if (elements.nextBtn.hasAttribute('disabled')) {
+        return;
+    }
+    
+    // Hide overlay to allow user interaction
+    hideGameOverlay();
+    
+    elements.result.classList.add('opacity-0')
     if (currentQuestionIndex < questions.length - 1) {
+        
         currentQuestionIndex++;
         displayQuestion();
         updateUI();
-        elements.nextBtn.setAttribute('disabled', '');
-        elements.prevBtn.removeAttribute('disabled');
-        elements.checkBtn.disabled = false;
+        disabledButton(elements.nextBtn)
+        activatedButton(elements.prevBtn)
+        activatedButton(elements.checkBtn)
         startCountdown();
     }
 }
@@ -530,6 +728,7 @@ function nextQuestion() {
 
 function updateUI() {
     // Update question counter
+
     elements.questionCounter.textContent = `Soal ${currentQuestionIndex + 1} dari ${questions.length}`;
 
     // Update score
@@ -541,17 +740,18 @@ function updateUI() {
 
     // Update navigation buttons
     if (currentQuestionIndex === 0) {
-        elements.prevBtn.setAttribute('disabled', '');
+        disabledButton(elements.prevBtn)
     } else {
-        elements.prevBtn.removeAttribute('disabled');
+        activatedButton(elements.prevBtn)
     }
-    elements.nextBtn.setAttribute('disabled', '');
 
     // Check if current answer is complete
     const question = questions[currentQuestionIndex];
     const userAnswer = userAnswers[currentQuestionIndex];
     const allFilled = question.blanks.every(index => userAnswer[index]);
-    elements.checkBtn.disabled = !allFilled;
+    if (allFilled) {
+        disabledButton(elements.checkBtn)
+    }
 }
 
 // --- SHOW FINAL RESULTS ---
@@ -589,13 +789,3 @@ function restartGame() {
 }
 
 // --- KEYBOARD SUPPORT ---
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !elements.checkBtn.disabled) {
-        checkAnswer();
-    } else if (e.key === 'ArrowLeft' && !elements.prevBtn.hasAttribute('disabled')) {
-        previousQuestion();
-    } else if (e.key === 'ArrowRight' && !elements.nextBtn.hasAttribute('disabled')) {
-        nextQuestion();
-    }
-});
