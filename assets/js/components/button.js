@@ -15,11 +15,15 @@ class ButtonComponent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.render();
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        // Re-render on any attribute change
+        if (oldValue !== newValue) {
+            this.render();
+        }
+    }
+
+    connectedCallback() {
         this.render();
     }
 
