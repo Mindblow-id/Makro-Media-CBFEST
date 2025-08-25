@@ -98,7 +98,7 @@ const quiz = {
 
             <!-- CONTROLS -->
             <footer id="button-control" class="mt-12 game-controls container mx-auto flex justify-center items-center gap-8">
-                <div id="prevBtn">
+                <div id="prevBtn" class="hidden">
                     <c-button class="btn btn-secondary" disabled>
                         <div class="flex justify-center items-center px-8">
                             <img src="assets/img/arrow-left-gold.svg" class="w-14">
@@ -292,12 +292,10 @@ function getRandomQuestions(count = 5) {
     const questionBatch = Math.floor(Math.random() * 3) + 1
 
     const questionTemp = allQuestions.slice((questionBatch - 1) * count, count * questionBatch)
-    console.log(questionBatch)
-    console.log(questionTemp)
 
-    // const shuffledQuestions = shuffleArray(questionTemp);
-    // return shuffledQuestions.slice(0, count);
-    return questionTemp;
+    const shuffledQuestions = shuffleArray(questionTemp);
+    return shuffledQuestions.slice(0, count);
+    // return questionTemp;
 }
 
 // Current game questions (will be set during initialization)
@@ -362,7 +360,7 @@ let score = 0;
 let userAnswers = [];
 let gameCompleted = false;
 let countdownInterval;
-let countdownValue = 10;
+let countdownValue = 15;
 
 // --- DOM ELEMENTS ---
 
@@ -675,14 +673,14 @@ function onCountdownComplete() {
     
     // Auto-check the current answer
     checkAnswer()
-    elements.result.classList.remove('opacity-0')
-    elements.result.style = 'filter: hue-rotate(345deg) saturate(2);'
-    elements.resultTitle.innerHTML = `
-    <p class="text-button text-4xl w-fit mx-auto font-bold text-center">
-    SORRY <br>
-    YOU'VE RUN OUT OF TIME
-    </p>    
-    `
+    // elements.result.classList.remove('opacity-0')
+    // elements.result.style = 'filter: hue-rotate(345deg) saturate(2);'
+    // elements.resultTitle.innerHTML = `
+    // <p class="text-button text-4xl w-fit mx-auto font-bold text-center">
+    // SORRY <br>
+    // YOU'VE RUN OUT OF TIME
+    // </p>    
+    // `
 }
 
 // --- OVERLAY MANAGEMENT ---
