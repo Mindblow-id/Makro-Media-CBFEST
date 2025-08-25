@@ -147,6 +147,9 @@ const quiz = {
 
 // --- QUIZ QUESTIONS ---
 
+
+
+
 const allQuestions = [
     {
         id: 1,
@@ -284,8 +287,16 @@ function shuffleArray(array) {
 
 function getRandomQuestions(count = 5) {
     // Shuffle all questions and take the first 'count' questions
-    const shuffledQuestions = shuffleArray(allQuestions);
-    return shuffledQuestions.slice(0, count);
+
+    const questionBatch = Math.floor(Math.random() * 3) + 1
+
+    const questionTemp = allQuestions.slice((questionBatch - 1) * count, count * questionBatch)
+    console.log(questionBatch)
+    console.log(questionTemp)
+
+    // const shuffledQuestions = shuffleArray(questionTemp);
+    // return shuffledQuestions.slice(0, count);
+    return questionTemp;
 }
 
 // Current game questions (will be set during initialization)
