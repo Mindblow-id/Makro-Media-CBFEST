@@ -29,7 +29,7 @@ const LCTS = {
 
       <div class="flex flex-col justify-center items-center mt-12">
         <img class=" " src="assets/img/LCTS/lcts.png"  >
-        <img class="" src="assets/img/LCTS/hand.png"  >
+        <img class=" " src="assets/img/LCTS/hand.png"  >
         
 
         <div class="flex justify-between items-center w-full mt-8"> 

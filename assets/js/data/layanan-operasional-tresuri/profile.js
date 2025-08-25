@@ -80,12 +80,12 @@ const treasuryProfile = {
             </c-button>
         </div>
         <div class="flex justify-center items-center gap-12">
-            <c-button class="w-[500px]">
+            <c-button class="w-[500px]" data-next="MODRMO">
                 <p class="text-button text-2xl font-semibold">
                     Modern Office Development
                 </p>
             </c-button>
-        </div>
+        </div>  
       </div>
     </div>
 
