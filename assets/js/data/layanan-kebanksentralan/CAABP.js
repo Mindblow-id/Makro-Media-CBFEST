@@ -23,14 +23,16 @@ const CAABP = {
         Current Account Administration Business Process
       </h3>
 
-      <p class="mt-12 text-center text-3xl text-shadow" style="font-family: Arial, Helvetica, sans-serif;">
+      <p class="mt-8 text-center text-3xl text-shadow" style="font-family: Arial, Helvetica, sans-serif;">
         External party current account administration services provided by Bank Indonesia, which is a means of administering savings, deposit and withdrawal transactions that can be carried out in accordance with the provisions and requirements set by Bank Indonesia.
       </p>
 
-      <div class="flex flex-col justify-center items-center mt-12">
-        <img class=" color-dodge" src="assets/img/CAABP/process.png"  >
-        
-        <c-card class="w-full h-[400px] mt-20">
+      <div class="flex flex-col justify-center items-center mt-8">
+        <img class=" color-dodge" src="assets/img/CAABP/caaabp.png"  >
+        <div class="w-full flex justify-end">
+        <img class="w-72 mt-4" src="assets/img/CAABP/moc.png"  >
+        </div>
+        <c-card class="w-full h-[400px] mt-12">
             <div class="flex flex-col p-6">
                 <p class="text-button text-center text-3xl font-semibold w-fit mx-auto"> Information </p>
                 <div 
@@ -57,7 +59,7 @@ const CAABP = {
             </div>
         </c-card>
 
-        <div class="flex justify-between items-center w-full mt-12"> 
+        <div class="flex justify-between items-center w-full mt-8"> 
           <c-button data-previous="lk-type-of-service" class="w-96">
             <div class="flex justify-center items-center  px-8">
               <img src="assets/img/arrow-left-gold.svg" class="w-14">
