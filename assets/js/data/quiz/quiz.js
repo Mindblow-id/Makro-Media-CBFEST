@@ -435,7 +435,7 @@ function initGame() {
     elements.countdownContainer.classList.remove('opacity-0')
 
     elements.scorePlace.classList.add('hidden')
-    if (!elements.replayButton.classList.contains('hidde'))
+    if (!elements.replayButton.classList.contains('hidden'))
         elements.replayButton.classList.add('hidden')
     
     // Hide the overlay layer
