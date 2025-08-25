@@ -24,7 +24,7 @@ const MASMD = {
         Monetary and Asset Securities Management Department
       </h3>
 
-      <img src="assets/img/MASMD/table-1.png" >
+      <img src="assets/img/MASMD/table.png" >
       
       <div class="flex justify-between items-center">
         <div class="w-96 mt-8">
@@ -38,7 +38,7 @@ const MASMD = {
         <div class="w-96 mt-8">
           <c-button data-next="MASMD2" class="">
             <div class="flex justify-center items-center gap-4 px-8 pl-2">
-                <p class="text-button text-xl"> Monetary and Asset Securities Management Department</p>
+                <p class="text-button text-xl"> Next Page</p>
                 <img src="assets/img/arrow-right-gold.svg" class="w-14">
             </div>  
           </c-button>

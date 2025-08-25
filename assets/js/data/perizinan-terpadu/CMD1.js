@@ -20,10 +20,10 @@ const CMD1 = {
 
     <div class="pt-80 px-6 container mx-auto w-fit">
       <h3 class="text-5xl title w-fit mx-auto uppercase text-center">
-        Capital Market Department
+        Currency Management Department
       </h3>
 
-      <img src="assets/img/CMD/table1.png" >
+      <img src="assets/img/CMD/table.png" >
       
       <div class="flex justify-between items-center">
         <div class="w-96 mt-8">

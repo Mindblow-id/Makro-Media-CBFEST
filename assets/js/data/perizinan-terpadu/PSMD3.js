@@ -1,6 +1,6 @@
 const PSMD3 = {
-    id: 'PSMD3',
-    data: `
+  id: "PSMD3",
+  data: `
     <div class="flex justify-between mx-auto w-full px-14 items-center absolute top-40"> 
       <c-button
         class="text-lg  xl:top-56 left-14 xl:left-20 w-60"
@@ -34,8 +34,16 @@ const PSMD3 = {
             </div>  
           </c-button>
         </div>
+                <div class="w-96 mt-8">
+          <c-button data-next="RMCD" class="">
+            <div class="flex justify-center items-center gap-8  px-8">
+                <p class="text-button text-xl"> Report Management and Compliance Department </p>
+                <img src="assets/img/arrow-right-gold.svg" class="w-14">
+            </div>  
+          </c-button>
+        </div>
       </div>
     </div>
     
-    `
-}
+    `,
+};

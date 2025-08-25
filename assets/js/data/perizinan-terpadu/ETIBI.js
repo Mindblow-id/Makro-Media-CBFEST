@@ -50,17 +50,16 @@ const ETIBI = {
             <button class="w-90" data-next="IEFD">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover -scale-x-100">
               <span class="pb-4 pl-20 pr-12 absolute inset-0 flex items-center justify-center text-white text-right text-md px-2">
-              Department of Islamic Economics and Finance  
+                Islamic Economics and Finance Department
               </span>
             </button>
           </div>
 
           <div class="absolute -left-18 bottom-10">
-            <button class="w-90" data-next="MMAMSD">
+            <button class="w-90" data-next="MASMD">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover ">
               <span class="pb-4 pr-20 pl-12 absolute inset-0 flex items-center justify-center text-white text-left text-md">
-                
-              Monetary Management and Asset Department
+              Monetary and Asset Securities Management Department
               </span>
             </button>
           </div>
@@ -75,11 +74,10 @@ const ETIBI = {
           </div>
           
           <div class="absolute -left-18 -bottom-40">
-            <button class="w-90" data-next="MASMD">
+            <button class="w-90" data-next="MMAMSD">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover ">
               <span class="pb-4 pr-20 pl-12 absolute inset-0 flex items-center justify-center text-white text-left text-md">
-                
-              Macroprudential, Monetary and Market Surveilance Department
+              Macroprudential, Monetary and Market Surveillance Department
               </span>
             </button>
           </div>
@@ -98,7 +96,6 @@ const ETIBI = {
             <button class="w-90" data-next="PSPD">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover ">
               <span class="pb-4 pr-20 pl-12 absolute inset-0 flex items-center justify-center text-white text-left text-md">
-                
                 Payment System Policy Department
               </span>
             </button>
