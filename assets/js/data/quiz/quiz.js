@@ -633,7 +633,7 @@ function startCountdown() {
         clearInterval(countdownInterval);
     }
 
-    countdownValue = 10;
+    countdownValue = 15;
     updateCountdownDisplay();
 
     countdownInterval = setInterval(() => {
