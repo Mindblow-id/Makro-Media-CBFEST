@@ -3,6 +3,7 @@
 const quiz = {
     id: 'quiz',
     data: `
+    <audio src="assets/audio/quiz.mp3" autoplay loop></audio>
         <!-- QUIZ HEADER -->
         <div class="flex justify-between mx-auto w-full px-14 items-center absolute top-40"> 
             <c-button class="text-lg xl:top-56 left-14 xl:left-20 w-60" data-previous="home">
