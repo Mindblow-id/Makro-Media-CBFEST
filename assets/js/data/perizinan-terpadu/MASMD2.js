@@ -1,5 +1,5 @@
-const PSMD3 = {
-  id: "PSMD3",
+const MASMD2 = {
+  id: "MASMD2",
   data: `
     <div class="flex justify-between mx-auto w-full px-14 items-center absolute top-40"> 
       <c-button
@@ -20,10 +20,10 @@ const PSMD3 = {
 
     <div class="pt-80 px-6 container mx-auto w-fit">
       <h3 class="text-5xl title w-fit mx-auto uppercase text-center">
-        Payment System Management Department
+      Monetary and Asset Securities Management Department
       </h3>
 
-      <img src="assets/img/PSMD/table3.png" >
+      <img src="assets/img/MASMD/table2.png" >
       
       <div class="flex justify-between items-center">
         <div class="w-96 mt-8">
@@ -34,10 +34,10 @@ const PSMD3 = {
             </div>  
           </c-button>
         </div>
-                <div class="w-96 mt-8">
-          <c-button data-next="RMCD" class="">
+        <div class="w-96 mt-8">
+          <c-button data-next="CMD1" class="">
             <div class="flex justify-center items-center gap-8  px-8">
-                <p class="text-button text-xl"> Report Management and Compliance Department </p>
+                <p class="text-button text-xl"> Financial Market Development Department</p>
                 <img src="assets/img/arrow-right-gold.svg" class="w-14">
             </div>  
           </c-button>

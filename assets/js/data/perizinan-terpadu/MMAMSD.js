@@ -1,6 +1,6 @@
 const MMAMSD = {
-    id: 'MMAMSD',
-    data: `
+  id: "MMAMSD",
+  data: `
     <div class="flex justify-between mx-auto w-full px-14 items-center absolute top-40"> 
       <c-button
         class="text-lg  xl:top-56 left-14 xl:left-20 w-60"
@@ -20,7 +20,7 @@ const MMAMSD = {
 
     <div class="pt-80 px-6 container mx-auto w-fit">
       <h3 class="text-5xl title w-fit mx-auto uppercase text-center">
-        Money Market and Asset Management Supervision Department
+      Macroprudential, Monetary and Market Surveillance Department
       </h3>
 
       <img src="assets/img/MMAMSD/table.png" >
@@ -37,7 +37,7 @@ const MMAMSD = {
         <div class="w-96 mt-8">
           <c-button data-next="CMD1" class="">
             <div class="flex justify-center items-center gap-8  px-8">
-                <p class="text-button text-xl"> Next Page</p>
+                <p class="text-button text-xl"> Financial Market Development Department</p>
                 <img src="assets/img/arrow-right-gold.svg" class="w-14">
             </div>  
           </c-button>
@@ -45,5 +45,5 @@ const MMAMSD = {
       </div>
     </div>
     
-    `
-}
+    `,
+};
