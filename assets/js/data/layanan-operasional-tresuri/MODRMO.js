@@ -59,7 +59,7 @@ const MODRMO = {
           <c-button data-previous="treasury-profile" class="w-96">
             <div class="flex justify-center items-center  px-8">
               <img src="assets/img/arrow-left-gold.svg" class="w-14">
-              <p class="text-button text-xl"> Treasury Operational Services </p>
+              <p class="text-button text-xl"> Back to Menu </p>
             </div>  
           </c-button>
 

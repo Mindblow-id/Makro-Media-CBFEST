@@ -30,7 +30,7 @@ const BSLAT2 = {
           <c-button data-previous="integrated-licensing" class="">
             <div class="flex justify-center items-center gap-8  px-8">
                   <img src="assets/img/arrow-left-gold.svg" class="w-14">
-                  <p class="text-button text-xl"> Integrated Licensing</p>
+                  <p class="text-button text-xl"> Back to Menu </p>
             </div>  
           </c-button>
         </div>

@@ -30,14 +30,14 @@ const IEFD = {
           <c-button data-previous="integrated-licensing" class="">
             <div class="flex justify-center items-center gap-8  px-8">
                   <img src="assets/img/arrow-left-gold.svg" class="w-14">
-                  <p class="text-button text-xl"> Integrated Licensing</p>
+                  <p class="text-button text-xl"> Back to Menu </p>
             </div>  
           </c-button>
         </div>
         <div class="w-96 mt-8">
           <c-button data-next="MASMD" class="">
             <div class="flex justify-center items-center gap-4 px-8 pl-2">
-                <p class="text-button text-xl"> Monetary and Asset Securities Management Department</p>
+                <p class="text-button text-xl"> Monetary and Asset Securities Management Department </p>
                 <img src="assets/img/arrow-right-gold.svg" class="w-14">
             </div>  
           </c-button>

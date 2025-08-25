@@ -30,14 +30,14 @@ const FMDD5 = {
           <c-button data-previous="integrated-licensing" class="">
             <div class="flex justify-center items-center gap-8  px-8">
                   <img src="assets/img/arrow-left-gold.svg" class="w-14">
-                  <p class="text-button text-xl"> Integrated Licensing</p>
+                  <p class="text-button text-xl"> Back to Menu </p>
             </div>  
           </c-button>
         </div>
         <div class="w-96 mt-8">
           <c-button data-next="MMAMSD" class="">
             <div class="flex justify-center items-center gap-8  px-8">
-                <p class="text-button text-xl"> Next Page</p>
+                <p class="text-button text-xl"> Next Page </p>
                 <img src="assets/img/arrow-right-gold.svg" class="w-14">
             </div>  
           </c-button>
