@@ -109,9 +109,7 @@ const ETIBI = {
               </span>
             </button>
           </div>
-
         </div>
       </div>
-
     `
 }
