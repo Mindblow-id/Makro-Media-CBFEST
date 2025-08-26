@@ -84,7 +84,7 @@ const SFTS = {
                     Transactions involving receipts and/or payments related to current accounts, claim/debit interest, penalties for settlement failures of monetary operation transactions, custody fees, and trading fees.
                 </li>
                 <li class="Arial">
-                    Transaksi terkait Kerjasama Keuangan Internasional (KKI) al: Local Currency Bilateral Agreement (LCBSA), Bilateral Swap Arrangement (BSA), Bilateral Currency Swap Arrangement (BCSA), dan Chiang Initiative Multilateralization (CMIM).
+                    Transactions related to International Financial Cooperation (IFC) al: Local Currency Bilateral Agreement (LCBSA), Bilateral Swap Arrangement (BSA), Bilateral Currency Swap Arrangement (BCSA), dan Chiang Initiative Multilateralization (CMIM).
                 </li>
                 <li class="Arial">
                     Transactions related to Special Drawing Rights (SDR).
