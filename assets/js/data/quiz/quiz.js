@@ -435,7 +435,8 @@ function initGame() {
     elements.countdownContainer.classList.remove('opacity-0')
 
     elements.scorePlace.classList.add('hidden')
-    elements.replayButton.classList.add('hidden')
+    if (!elements.replayButton.classList.contains('hidden'))
+        elements.replayButton.classList.add('hidden')
     
     // Hide the overlay layer
     hideGameOverlay();
@@ -743,7 +744,8 @@ function checkAnswer() {
 
         elements.scorePlace.classList.remove('hidden')
         elements.scorePlace.innerHTML = completeQuizTemplate(finalScore)
-        elements.replayButton.classList.remove('hidden')
+        if (finalScore < 80)
+            elements.replayButton.classList.remove('hidden')
 
 
 

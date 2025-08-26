@@ -38,7 +38,7 @@ const SRTS = {
                                 SBI/SBIS: Sertifikat Bank Indonesia/ Sharia Bank Indonesia Certificate
                             </li>
                             <li class="Arial">
-                                SDBI: Sekuritas Rupiah Bank Indonesia
+                                SRBI: Sekuritas Rupiah Bank Indonesia
                             </li>
                             <li class="Arial">
                                 RR SBN/SBSN: Reverse Repo of SBN/SBSN (Reverse Repo of Government Bonds/Government Sharia Bonds)
@@ -61,7 +61,7 @@ const SRTS = {
                                 Repo: Repurchase Agreement
                             </li>
                             <li class="Arial">
-                                PASBI: Penempatan Aset Surat Berharga Indonesia (Placement of Indonesia Securities Assets)
+                                PASBI: Penempatan Aset Surat Berharga Bank Indonesia (Placement of Indonesia Securities Assets)
                             </li>
                             <li class="Arial">
                                 Buy SBN Outright: Buying Government Bonds Outright
