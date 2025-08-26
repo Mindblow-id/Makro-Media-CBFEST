@@ -36,7 +36,7 @@ const ETIBI = {
 
           <!-- Departmental Buttons arranged in a circle -->
           
-          <div class="absolute left-18 bottom-60">
+          <div class="absolute left-18 bottom-80">
             <button class="w-90" data-next="BSLAT1">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover ">
               <span class="pb-4 pr-20 pl-12 absolute inset-0 flex items-center justify-center text-white text-left text-md">
@@ -45,7 +45,7 @@ const ETIBI = {
               </span>
             </button>
           </div>
-          <div class="absolute right-18 bottom-60">
+          <div class="absolute right-18 bottom-80">
             <!-- Top Row Right -->
             <button class="w-90" data-next="IEFD">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover -scale-x-100">
@@ -55,7 +55,7 @@ const ETIBI = {
             </button>
           </div>
 
-          <div class="absolute -left-18 bottom-10">
+          <div class="absolute -left-5 bottom-35">
             <button class="w-90" data-next="MASMD">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover ">
               <span class="pb-4 pr-20 pl-12 absolute inset-0 flex items-center justify-center text-white text-left text-md">
@@ -63,7 +63,7 @@ const ETIBI = {
               </span>
             </button>
           </div>
-          <div class="absolute -right-18 bottom-10">
+          <div class="absolute -right-5 bottom-35">
             <!-- Top Row Right -->
             <button class="w-90" data-next="FMDD1">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover -scale-x-100">
@@ -73,7 +73,7 @@ const ETIBI = {
             </button>
           </div>
           
-          <div class="absolute -left-18 -bottom-40">
+          <div class="absolute -left-18 -bottom-15">
             <button class="w-90" data-next="MMAMSD">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover ">
               <span class="pb-4 pr-20 pl-12 absolute inset-0 flex items-center justify-center text-white text-left text-md">
@@ -81,7 +81,7 @@ const ETIBI = {
               </span>
             </button>
           </div>
-          <div class="absolute -right-18 -bottom-40">
+          <div class="absolute -right-18 -bottom-15">
             <!-- Top Row Right -->
             <button class="w-90" data-next="CMD1">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover -scale-x-100">
@@ -92,7 +92,7 @@ const ETIBI = {
           </div>
 
 
-          <div class="absolute left-18 -bottom-90">
+          <div class="absolute -left-5 -bottom-65">
             <button class="w-90" data-next="PSPD">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover ">
               <span class="pb-4 pr-20 pl-12 absolute inset-0 flex items-center justify-center text-white text-left text-md">
@@ -100,12 +100,22 @@ const ETIBI = {
               </span>
             </button>
           </div>
-          <div class="absolute right-18 -bottom-90">
+          <div class="absolute -right-5 -bottom-65">
             <!-- Top Row Right -->
             <button class="w-90" data-next="PSMD1">
               <img src="assets/img/button-bg-blue.png" alt="" class="w-full h-full object-cover -scale-x-100">
               <span class="pb-4 pl-20 pr-12 absolute inset-0 flex items-center justify-center text-white text-right text-md px-2">
                 Payment System Management Department
+              </span>
+            </button>
+          </div>
+
+          <div class="absolute left-66 -bottom-115">
+            <!-- Top Row Right -->
+            <button class="w-90" data-next="PSMD1">
+              <img src="/assets/img/btn-bg-center.png" alt="" class="w-full h-full object-cover -scale-x-100">
+              <span class="px-12 pb-4 absolute inset-0 flex items-center justify-center text-white text-center text-md">
+                Report Management and Compliance Department
               </span>
             </button>
           </div>
