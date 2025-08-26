@@ -202,7 +202,7 @@ const allQuestions = [
     },
     {
         id: 7,
-        clue: "The BI department responsible for licensing and central bank services operationsAnnual festival showcasing Bank Indonesia’s services",
+        clue: "The BI department responsible for licensing and central bank services operations",
         answer: "DPPT",
         pattern: "__PT",
         choices: ["P", "D", "M", "E"],
