@@ -112,7 +112,7 @@ const ETIBI = {
 
           <div class="absolute left-66 -bottom-115">
             <!-- Top Row Right -->
-            <button class="w-90" data-next="PSMD1">
+            <button class="w-90" data-next="RMCD">
               <img src="/assets/img/btn-bg-center.png" alt="" class="w-full h-full object-cover -scale-x-100">
               <span class="px-12 pb-4 absolute inset-0 flex items-center justify-center text-white text-center text-md">
                 Report Management and Compliance Department
