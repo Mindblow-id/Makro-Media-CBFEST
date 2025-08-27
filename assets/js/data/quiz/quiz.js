@@ -739,22 +739,20 @@ function checkAnswer() {
 
 
         // show score
-
-        const finalScore = Math.round(score / questions.length * 100)
+        let finalScore = Math.round(score / questions.length * 100)
+        
+        if (finalScore > 100) {
+            finalScore = 100
+        }
 
         elements.scorePlace.classList.remove('hidden')
         elements.scorePlace.innerHTML = completeQuizTemplate(finalScore)
         if (finalScore < 80)
             elements.replayButton.classList.remove('hidden')
-
-
-
-
-
         return;
     
     }
-
+    
     updateUI();
 }
 
