@@ -702,6 +702,9 @@ function hideGameOverlay() {
 
 function checkAnswer() {
     // Show overlay to prevent user interaction
+    if (elements.checkBtn.hasAttribute('disabled')) {
+        return;
+    }
     showGameOverlay();
     
     // Clear countdown when manually checking answer
